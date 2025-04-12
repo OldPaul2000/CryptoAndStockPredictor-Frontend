@@ -1,6 +1,8 @@
 import { query } from "../helper/query";
 
 class LoginView {
+  #backgroundImage = query(".image");
+  #loginContainer = query(".login-container");
   #usernameWarn = query(".username-input-warn");
   #username = query(".username");
   #passwordWarn = query(".password-input-warn");
@@ -16,16 +18,59 @@ class LoginView {
   }
 
   usernameIsEmpty() {
-    return this.#username.lenght === 0;
+    return this.#username.value.length === 0;
   }
 
   passwordIsEmpty() {
-    return this.#password.lenght === 0;
+    return this.#password.value.length === 0;
+  }
+
+  getUsername() {
+    return this.#username.value;
+  }
+
+  getPassword() {
+    return this.#password.value;
+  }
+
+  displayLoginCassette(display) {
+    if (!display) {
+      this.#loginContainer.classList.add("dn");
+      this.#backgroundImage.classList.add("bi-f");
+    } else {
+      this.#loginContainer.classList.remove("dn");
+      this.#backgroundImage.classList.remove("bi-f");
+    }
+  }
+
+  clearLoginFields() {
+    this.#username.value = "";
+    this.#password.value = "";
+  }
+
+  handleEmptyInputs() {
+    if (this.usernameIsEmpty()) {
+      this.setUsernameWarn("Empty field");
+    } else {
+      this.setUsernameWarn("");
+    }
+
+    if (this.passwordIsEmpty()) {
+      this.#passwordWarn.textContent = "Empty field";
+    } else {
+      this.setPasswordWarn("");
+    }
   }
 
   handleLogin(listener) {
-    this.#loginBtn.addEventListener("click", listener);
-    this.#loginBtn.addEventListener("keydown", listener);
+    this.#loginBtn.addEventListener("click", (e) => {
+      this.handleEmptyInputs();
+      listener(e);
+    });
+    this.#loginBtn.addEventListener("keydown", (e) => {
+      this.handleEmptyInputs();
+      listener(e);
+    });
   }
 }
 

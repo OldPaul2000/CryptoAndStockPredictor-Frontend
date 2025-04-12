@@ -29,6 +29,7 @@ export const login = async function (credentials) {
 
       myHeaders.set(CSRF_HEADER, getCsrf());
       myHeaders.set(AUTHORIZATION_HEADER, loginCache.getJwt());
+      return response;
     }
     return jsonResponse;
   } catch (error) {}
@@ -45,9 +46,9 @@ export const logout = async function () {
         headers: myHeaders,
       }
     );
-    const jsonResponse = await response.json();
     if (!response.ok) {
-      return jsonResponse;
+      return await response.json();
     }
+    return response;
   } catch (error) {}
 };

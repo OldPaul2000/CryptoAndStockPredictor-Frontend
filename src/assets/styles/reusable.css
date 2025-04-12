@@ -1,0 +1,8 @@
+.dn {
+  opacity: 0;
+}
+
+/* Background image fade */
+.bi-f {
+  filter: brightness(0.1);
+}
