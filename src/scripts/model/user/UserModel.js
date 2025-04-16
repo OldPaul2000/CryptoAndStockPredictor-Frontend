@@ -1,11 +1,8 @@
-import { loginCache } from "../../cache/login-cache.js";
-import { API_ADDRESS, API_PORT } from "../../constants/api-address.js";
-import { myHeaders } from "../../cache/my-headers.js";
-import {
-  CSRF_HEADER,
-  AUTHORIZATION_HEADER,
-} from "../../constants/headers-constants.js";
-import { getCsrf } from "../../cache/csrf-cache.js";
+import { loginCache } from "../../cache/LoginCache.js";
+import { API_ADDRESS, API_PORT } from "../../constants/ApiAddress.js";
+import { myHeaders } from "../../cache/MyHeaders.js";
+import { AUTHORIZATION_HEADER } from "../../constants/HeadersConstants.js";
+import { getCsrf } from "../../cache/CsrfCache.js";
 
 export const login = async function (credentials) {
   myHeaders.set("Content-Type", "application/json");
@@ -27,7 +24,7 @@ export const login = async function (credentials) {
       loginCache.setJwt(jsonResponse.jwt);
       loginCache.setRoles(jsonResponse.roles);
 
-      myHeaders.set(CSRF_HEADER, getCsrf());
+      getCsrf();
       myHeaders.set(AUTHORIZATION_HEADER, loginCache.getJwt());
       return response;
     }
@@ -36,6 +33,7 @@ export const login = async function (credentials) {
 };
 
 export const logout = async function () {
+  await getCsrf();
   try {
     const response = await fetch(
       `http://${API_ADDRESS}:${API_PORT}/api/v1/users/logout`,

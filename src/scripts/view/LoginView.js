@@ -1,4 +1,4 @@
-import { query } from "../helper/query";
+import { query } from "../helper/Query";
 
 class LoginView {
   #backgroundImage = query(".image");
@@ -33,12 +33,32 @@ class LoginView {
     return this.#password.value;
   }
 
-  displayLoginCassette(display) {
-    if (!display) {
+  #transitionHandler = (e) => {
+    const elementName = e.target.classList[0];
+    const propertyName = e.propertyName;
+    if (elementName === "login-container" && propertyName === "opacity") {
       this.#loginContainer.classList.add("dn");
+      this.#loginContainer.removeEventListener(
+        "transitionend",
+        this.#transitionHandler
+      );
+    }
+  };
+
+  displayLogin(display) {
+    if (!display) {
+      this.#loginContainer.addEventListener(
+        "transitionend",
+        this.#transitionHandler
+      );
+      this.#loginContainer.classList.add("op-0");
       this.#backgroundImage.classList.add("bi-f");
     } else {
       this.#loginContainer.classList.remove("dn");
+      const timeout = setTimeout(() => {
+        this.#loginContainer.classList.remove("op-0");
+        clearTimeout(timeout);
+      }, 100);
       this.#backgroundImage.classList.remove("bi-f");
     }
   }

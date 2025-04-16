@@ -5,7 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1;
   transition: opacity 0.5s;
   z-index: 2;
 }
@@ -13,7 +12,6 @@
 .login-cassette {
   width: 21rem;
   height: 32rem;
-  /* position: absolute; */
   border-radius: 1.2rem;
   background-color: #606469;
   display: flex;
@@ -90,13 +88,15 @@
   font-family: Roboto;
   font-size: 1.4rem;
   border: none;
+  outline: none;
   border-radius: 0.4rem;
   background-color: #2a333d;
   color: #050608;
   transition: box-shadow 0.2s, transform 0.1s;
 }
 
-.login-btn:hover {
+.login-btn:hover,
+.login-btn:focus {
   box-shadow: 0 0 10 1 rgba(200, 200, 200, 0.4);
 }
 

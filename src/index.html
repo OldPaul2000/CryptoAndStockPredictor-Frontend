@@ -11,8 +11,8 @@
 
     <link rel="stylesheet" href="assets/styles/login.css"></link>
     <link rel="stylesheet" href="assets/styles/main-page-style.css"></link>
-    <link rel="stylesheet" href="assets/styles/general.css"></link>
     <link rel="stylesheet" href="assets/styles/reusable.css">
+    <link rel="stylesheet" href="assets/styles/general.css"></link>
     
     <script defer type="module" src="scripts/main.js"></script>
   </head>
@@ -26,19 +26,32 @@
         <div class="login-inputs">
           <div class="username-container">
             <p class="username-input-warn">Empty field</p>
-            <input class="username" type="text" placeholder="Username">
+            <input class="username" type="text" value="john" placeholder="Username">
           </div>
           <div class="password-container">
               <p class="password-input-warn">Empty field</p>
-              <input class="password" type="password" placeholder="Password">
+              <input class="password" type="password" value="john1234" placeholder="Password">
           </div>
         </div>
         <button class="login-btn">Login</button>
       </div>
     </div>
-    <main class="dn">
+    <main class="dn op-0">
       <div class="main-page">
+        <div class="control-panel"></div>
+        <!-- Only for testing -->
         <button class="logout-btn">Logout</button>
+        <button class="update-btn">Update</button>
+        <button class="confirm-btn">Confirm</button>
+        <button class="cancel-btn">Cancel</button>
+        <button class="files-list-btn">Files list</button>
+         <div class="crypto-container">
+          <input class="currency-type" type="text" placeholder="Currency">
+          <input class="start-result" type="number" placeholder="Start index">
+          <input class="results-per-page" type="number" placeholder="Results per page">
+          <button class="search-crypto">Search</button>
+         </div>
+         <!-- Only for testing -->
       </div>
     </main>
   </body>
