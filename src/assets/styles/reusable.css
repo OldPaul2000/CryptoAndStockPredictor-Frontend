@@ -5,8 +5,53 @@
 .op-0 {
   opacity: 0;
 }
+/*-------------------------------------------------------------------------------*/
+/*===== Main page =====*/
 
 /* Background image fade */
 .bi-f {
-  filter: brightness(0.1);
+  filter: brightness(0.15);
 }
+
+/*===== Main page =====*/
+/*-------------------------------------------------------------------------------*/
+/*===== Tools panel =====*/
+
+/* Hide panel */
+.hp {
+  transform: translateX(-100%);
+}
+
+/* Rotate hide button arrow */
+.rhba {
+  transform: rotate(180deg);
+}
+
+/*===== Tools panel =====*/
+/*-------------------------------------------------------------------------------*/
+/*===== TaskBar =====*/
+
+.tl {
+  transition: left 0.2s;
+}
+
+/*===== TaskBar =====*/
+/*-------------------------------------------------------------------------------*/
+/*===== Window =====*/
+
+/* Window minimize transition */
+.wm {
+  transition: left 0.4s, top 0.4s, width 0.4s, height 0.4s, opacity 0.4s;
+}
+
+/* Window close transition */
+.wc {
+  transition: opacity 0.4s;
+}
+
+/* Sets window z-index:1 when clicked*/
+.zi-1 {
+  z-index: 1;
+}
+
+/*===== Window =====*/

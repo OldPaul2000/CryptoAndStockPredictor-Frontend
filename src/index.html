@@ -9,10 +9,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="assets/styles/general.css"></link>
     <link rel="stylesheet" href="assets/styles/login.css"></link>
     <link rel="stylesheet" href="assets/styles/main-page-style.css"></link>
+    <link rel="stylesheet" href="assets/styles/window-style.css"></link>
     <link rel="stylesheet" href="assets/styles/reusable.css">
-    <link rel="stylesheet" href="assets/styles/general.css"></link>
+    <link rel="stylesheet" href="assets/styles/testing.css"></link>
     
     <script defer type="module" src="scripts/main.js"></script>
   </head>
@@ -25,11 +27,11 @@
         <p class="login-title">Login</p>
         <div class="login-inputs">
           <div class="username-container">
-            <p class="username-input-warn">Empty field</p>
+            <p class="username-input-warn"></p>
             <input class="username" type="text" value="john" placeholder="Username">
           </div>
           <div class="password-container">
-              <p class="password-input-warn">Empty field</p>
+              <p class="password-input-warn"></p>
               <input class="password" type="password" value="john1234" placeholder="Password">
           </div>
         </div>
@@ -38,18 +40,25 @@
     </div>
     <main class="dn op-0">
       <div class="main-page">
-        <div class="control-panel"></div>
+        <div class="tools-panel">
+          <button class="hide-panel-btn"><img class="rhba" src="assets/icons/right-arrow.png"></button>
+          <button class="remove-icon">Remove icon</button>
+          <input type="number" class="icon-index">;
+        </div>
+        <div class="task-bar"></div>
         <!-- Only for testing -->
-        <button class="logout-btn">Logout</button>
-        <button class="update-btn">Update</button>
-        <button class="confirm-btn">Confirm</button>
-        <button class="cancel-btn">Cancel</button>
-        <button class="files-list-btn">Files list</button>
-         <div class="crypto-container">
-          <input class="currency-type" type="text" placeholder="Currency">
-          <input class="start-result" type="number" placeholder="Start index">
-          <input class="results-per-page" type="number" placeholder="Results per page">
-          <button class="search-crypto">Search</button>
+         <div class="test-container">
+          <button class="logout-btn">Logout</button>
+          <button class="update-btn">Update</button>
+          <button class="confirm-btn">Confirm</button>
+          <button class="cancel-btn">Cancel</button>
+          <button class="files-list-btn">Files list</button>
+           <div class="crypto-container">
+            <input class="currency-type" type="text" placeholder="Currency">
+            <input class="start-result" type="number" placeholder="Start index">
+            <input class="results-per-page" type="number" placeholder="Results per page">
+            <button class="search-crypto">Search</button>
+           </div>
          </div>
          <!-- Only for testing -->
       </div>

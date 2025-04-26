@@ -10,14 +10,13 @@ export const initializeLogoutFunctionality = function () {
   logoutBtn.addEventListener("click", handleLogout);
 };
 
-const handleLogout = function () {
-  logout().then((resp) => {
-    if (resp.status === 200) {
-      mainPageView.displayMain(false);
-      loginView.displayLogin(true);
-      // loginView.clearLoginFields();
-      loginCache.clearData();
-      clearHeaders();
-    }
-  });
+const handleLogout = async function () {
+  const resp = await logout();
+  if (resp.status === 200) {
+    mainPageView.displayMain(false);
+    loginView.displayLogin(true);
+    // loginView.clearLoginFields();
+    loginCache.clearData();
+    clearHeaders();
+  }
 };

@@ -2,6 +2,39 @@ import { query } from "../helper/Query";
 
 class MainPageView {
   #main = query("main");
+  #windows = [];
+
+  getWindowByIndex(index) {
+    return this.#windows[index];
+  }
+
+  getWindowByName(name) {
+    return this.#windows.filter((currWindow) => {
+      return currWindow.getWindowName() === name;
+    })[0];
+  }
+
+  getWindows() {
+    return this.#windows;
+  }
+
+  addWindow(window) {
+    this.#windows.push(window);
+  }
+
+  removeWindow(window) {
+    this.#windows.forEach((currWindow) => {
+      if (window.getWindowName() === currWindow.getWindowName()) {
+        const windowToRemove = Array.from(
+          document.querySelectorAll(`[data-name=${window.getWindowName()}]`)
+        )[0];
+        windowToRemove.remove();
+      }
+    });
+    this.#windows = this.#windows.filter((currWindow) => {
+      return currWindow.getWindowName() !== window.getWindowName();
+    });
+  }
 
   #transitionHandler = (e) => {
     const tagName = e.target.tagName;
@@ -24,6 +57,10 @@ class MainPageView {
       }, 100);
       this.#main.style.zIndex = 3;
     }
+  }
+
+  getMainPage() {
+    return this.#main;
   }
 }
 

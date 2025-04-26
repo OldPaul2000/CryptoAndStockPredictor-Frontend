@@ -1,0 +1,2 @@
+- Solve transition bug on closing window. 
+  If the window was minimized and displayed again it can't be closed
