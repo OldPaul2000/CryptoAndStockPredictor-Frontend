@@ -33,8 +33,8 @@ export class WindowView {
     this.#icon = icon;
   }
 
-  #getWindowStructure() {
-    const windowStructure = `<div class=\"window-container\">
+  #getWindowHTML() {
+    const structure = `<div class=\"window-container\">
       <div class=\"window-bar\">
         <img class=\"window-icon\" draggable=false src=${this.#icon}>
         <p class=\"window-title\" >${this.#windowTitle}</p>
@@ -53,7 +53,7 @@ export class WindowView {
       <div class=\"content-container\">${this.#content}</div>
     </div>`;
 
-    return windowStructure;
+    return structure;
   }
 
   getWindowElement() {
@@ -117,7 +117,8 @@ export class WindowView {
     const windowWidth = Number.parseInt(e.currentTarget.style.width);
     const windowHeight = Number.parseInt(e.currentTarget.style.height);
     if (
-      e.target.classList[0] === "content-container" &&
+      (e.target.parentNode.classList[0] === "content-container" ||
+        e.target.classList[0] === "content-container") &&
       !windowResizeHandler.mouseIsPressed()
     ) {
       if (
@@ -255,7 +256,7 @@ export class WindowView {
   }
 
   createWindow() {
-    this.#mainPage.insertAdjacentHTML("afterbegin", this.#getWindowStructure());
+    this.#mainPage.insertAdjacentHTML("afterbegin", this.#getWindowHTML());
     this.#window = query(".window-container");
     this.#minimizeBtn = query(".minimize-btn");
     this.#maximizeBtn = query(".maximize-btn");

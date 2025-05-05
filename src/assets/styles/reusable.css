@@ -10,7 +10,7 @@
 
 /* Background image fade */
 .bi-f {
-  filter: brightness(0.15);
+  filter: brightness(0.25);
 }
 
 /*===== Main page =====*/
@@ -55,3 +55,17 @@
 }
 
 /*===== Window =====*/
+/*-------------------------------------------------------------------------------*/
+/*===== Chart =====*/
+
+/* Lower close value bar color */
+.lwr-c {
+  background-color: #f6465d;
+}
+
+/* Higher close value bar color */
+.hgr-c {
+  background-color: #2ebd85;
+}
+
+/*===== Chart =====*/

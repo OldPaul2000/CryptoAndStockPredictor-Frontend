@@ -1,2 +1,16 @@
-- Solve transition bug on closing window. 
-  If the window was minimized and displayed again it can't be closed
+- 1.a: Fix window resize logic after complete chart development
+
+- 2.a: Implement scroll increase checker to prevent currentScrollBarIndex number 
+  to increment more than total chart bars number - visible charts
+  (it counts from the very first bar to the left most bar)
+- 2.b: Fix max left scroll value. When max scrolled, the value is not divisible by SCROLL_FACTOR anymore
+  and when the graph is scrolled back the scrollLeft value keeps being
+  not divisible by SCROLL_FACTOR and the chart bars are not framed correctly
+
+- 3.a: Implement addChartBar functionality:
+      * spread price scale elements evenly based on 
+        graph height(graph height = scale-content height)
+      * spread timestamp elements evenly
+      * recalculate timestamp elements and price scale elements
+        position on window resize
+- 3.b(optional): make bars resizable by mouse wheel

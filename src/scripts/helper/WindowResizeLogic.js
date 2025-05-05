@@ -11,6 +11,9 @@ class WindowResizeHandler {
   #resizeHandler = (e) => {
     if (
       e.target.classList[0] === "content-container" ||
+      e.target.classList[0] === "chart-content" ||
+      (e.target.parentNode?.classList &&
+        e.target.parentNode.classList[0] === "content-container") ||
       e.target.classList[0] === "main-page"
     ) {
       const resizeDirection = this.#currentWindow.dataset.resizeDirection;
@@ -55,6 +58,10 @@ class WindowResizeHandler {
   #getCurrentWindow(e) {
     if (e.target.parentNode.classList[0] === "window-container") {
       this.#currentWindow = e.target.parentNode;
+    } else if (
+      e.target.parentNode.parentNode.classList[0] === "window-container"
+    ) {
+      this.#currentWindow = e.target.parentNode.parentNode;
     }
   }
 
@@ -70,7 +77,10 @@ class WindowResizeHandler {
   initializeWindowsResizeHandler = function () {
     document.addEventListener("mousedown", (e) => {
       this.#mousePressed = true;
-      if (e.target.classList[0] === "content-container") {
+      if (
+        e.target.classList[0] === "content-container" ||
+        e.target.parentNode.classList[0] === "content-container"
+      ) {
         this.#getCurrentWindow(e);
         if (
           this.#currentWindow?.classList &&
