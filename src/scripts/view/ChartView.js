@@ -90,16 +90,15 @@ export class ChartView {
     return this.#chart;
   }
 
-  addChartBar(currencyObject, index) {
+  addChartBar(currencyObject, index, isLastElement) {
     const bar = document.createElement("div");
     bar.classList.add("chart-bar");
-    bar.insertAdjacentText("afterbegin", `${index}`);
     this.#graph.insertAdjacentElement("beforeend", bar);
 
     this.#chartBars.push(bar);
     this.#setBarColors(currencyObject, bar);
     this.#currencyObjects.push(currencyObject);
-    this.#addTimestamp(currencyObject.date);
+    this.#addTimestamp(currencyObject.date, index, isLastElement);
     this.#setCurrencyDataValue(currencyObject);
     this.#graph.scrollLeft = this.#chartBars.length * this.#SCROLL_FACTOR;
     this.#currentXScroll = this.#graph.scrollLeft;
@@ -111,6 +110,95 @@ export class ChartView {
     this.#calculateBarHeight(currencyObject.close, bar);
     this.#calculateMinAndMaxOpenAndClose();
     this.#setPriceScaleElementsValues();
+  }
+
+  #lastYear;
+  #lastMonth;
+  #lastTimestampWasYear = true;
+  #lastTimestampWasMonth = false;
+  #firstYear = false;
+  #timestampElementLeftMargin;
+  #barsNumberUntilNextTimestamp = 0;
+  #addTimestamp(date, currencyObjectIndex, isLastElement) {
+    // console.log(date, isLastElement);
+    // console.log(this.#chartBars[this.#chartBars.length - 1].style.left);
+    const year = date.slice(0, 4);
+    const month = date.slice(5, 7);
+    let element;
+    if (currencyObjectIndex === 0) {
+      element = document.createElement("div");
+      element.classList.add("timestamp-el");
+      element.innerText = year;
+      this.#timestamp.insertAdjacentElement("beforeend", element);
+      this.#lastMonth = Number.parseInt(month);
+      this.#timestampElements.push(element);
+      this.#lastTimestampWasYear = true;
+      this.#lastTimestampWasMonth = false;
+    } else {
+      if (Number.parseInt(month) > this.#lastMonth) {
+        element = document.createElement("div");
+        element.classList.add("timestamp-el");
+        element.innerText = (this.#lastMonth + "").padStart(2, "0");
+        element.style.marginLeft =
+          this.#calculateTimestampLeftMargin(true) + "px";
+        this.#timestamp.insertAdjacentElement("beforeend", element);
+        this.#timestampElements.push(element);
+        this.#lastTimestampWasYear = false;
+        this.#lastTimestampWasMonth = true;
+        this.#barsNumberUntilNextTimestamp = 0;
+      } else if (Number.parseInt(year) > this.#lastYear) {
+        element = document.createElement("div");
+        element.classList.add("timestamp-el");
+        element.innerText = this.#lastYear;
+        element.style.marginLeft =
+          this.#calculateTimestampLeftMargin(false) + "px";
+        this.#timestamp.insertAdjacentElement("beforeend", element);
+        this.#timestampElements.push(element);
+        this.#lastTimestampWasYear = true;
+        this.#lastTimestampWasMonth = false;
+        this.#firstYear = true;
+        this.#barsNumberUntilNextTimestamp = 0;
+      } else if (isLastElement) {
+        element = document.createElement("div");
+        element.classList.add("timestamp-el");
+        element.innerText = month;
+        element.style.marginLeft =
+          this.#calculateTimestampLeftMargin(true) + "px";
+        this.#timestamp.insertAdjacentElement("beforeend", element);
+        this.#timestampElements.push(element);
+        this.#lastTimestampWasYear = false;
+        this.#lastTimestampWasMonth = true;
+        this.#barsNumberUntilNextTimestamp = 0;
+      }
+      // It doesn't add last element
+    }
+    this.#lastYear = Number.parseInt(date.slice(0, 4));
+    this.#lastMonth = Number.parseInt(date.slice(5, 7));
+    this.#barsNumberUntilNextTimestamp++;
+  }
+
+  #calculateTimestampLeftMargin(isMonth) {
+    let margin;
+    if (this.#lastTimestampWasYear) {
+      if (!this.#firstYear) {
+        margin =
+          (this.#barsNumberUntilNextTimestamp - 3) *
+          (this.#SCROLL_FACTOR - 0.15);
+      } else {
+        margin =
+          (this.#barsNumberUntilNextTimestamp - 1) * this.#SCROLL_FACTOR - 6;
+      }
+    } else {
+      if (isMonth) {
+        margin =
+          (this.#barsNumberUntilNextTimestamp - 1.5) * this.#SCROLL_FACTOR +
+          5.7;
+      } else {
+        margin =
+          (this.#barsNumberUntilNextTimestamp - 1.5) * this.#SCROLL_FACTOR;
+      }
+    }
+    return margin;
   }
 
   #setPriceScaleElementsValues() {
@@ -145,15 +233,6 @@ export class ChartView {
         chartBar.classList.add("hgr-c");
       }
     }
-  }
-
-  #timestampIndex = 0;
-  #addTimestamp(date) {
-    const html = `<div class=\"timestamp-el\">${this.#timestampIndex}</div>`;
-    this.#timestamp.insertAdjacentHTML("beforeend", html);
-    const timestamp = this.#graph.querySelector(".timestamp-el");
-    this.#timestampElements.push(timestamp);
-    this.#timestampIndex++;
   }
 
   #calculateMinAndMaxOpenAndClose() {
@@ -365,6 +444,10 @@ export class ChartView {
     "timestamp",
     "timestamp-el",
     "chart",
+    "price-scale-cursor",
+    "main-content",
+    "cursor-price-text",
+    "price-scale",
   ]);
   #cursorExitedFromGraph(event) {
     const outTarget = event.toElement;

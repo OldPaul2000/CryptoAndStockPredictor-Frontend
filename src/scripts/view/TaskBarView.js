@@ -256,6 +256,21 @@ class TaskBarView {
   getIconWidth() {
     return this.#ICON_WIDTH;
   }
+
+  clearData() {
+    this.#icons.forEach((icon) => {
+      this.#taskBar.removeChild(icon);
+    });
+    this.#icons = [];
+    this.#lastIconIndex = 0;
+    this.#initialMouseX = null;
+    this.#initialLeft = 10;
+    this.#ICON_WIDTH = 140;
+    this.#SPACE_BETWEEN_ICONS = 5;
+    this.#X_OFFSET = this.#ICON_WIDTH + this.#SPACE_BETWEEN_ICONS;
+    this.#slideUpperLimit = visualViewport.width - this.#ICON_WIDTH - 10;
+    this.#taskBar = query(".task-bar");
+  }
 }
 
 export const taskBarView = new TaskBarView();

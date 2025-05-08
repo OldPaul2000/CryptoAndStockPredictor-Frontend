@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/styles/main-page-style.css"></link>
     <link rel="stylesheet" href="assets/styles/window-style.css"></link>
     <link rel="stylesheet" href="assets/styles/chart-style.css"></link>
+    <link rel="stylesheet" href="assets/styles/data-update-style.css"></link>
     <link rel="stylesheet" href="assets/styles/reusable.css">
     <link rel="stylesheet" href="assets/styles/testing.css"></link>
     
@@ -43,25 +44,40 @@
       <div class="main-page">
         <div class="tools-panel">
           <button class="hide-panel-btn"><img class="rhba" src="assets/icons/right-arrow.png"></button>
-          <button class="remove-icon">Remove icon</button>
-          <input type="number" class="icon-index">;
+          <div class="profile-username-container">
+            <p class="profile-username-p"></p>
+            <button class="logout-btn">
+              <img class="logout-icon" src="../src/assets/icons/power.png"></img>
+            </button>
+          </div>
+          <div class="charts-generator-container">
+            <div class="currencies-options-container">
+              <div class="crypto-charts">
+                <select></select>
+              </div>
+              <div class="stocks-charts">
+                <select></select>
+              </div>
+            </div>
+            <div class="gen-chart-btns-container">
+              <button class="gen-crypto-chart-btn">Generate crypto chart</button>
+              <button class="gen-stocks-chart-btn">Generate stocks chart</button>
+            </div>
+          </div>
+          <div class="data-update-container dn">
+            <div class="crypto-update-container">
+              <select class="available-crypto-updates"></select>
+              <button class="crypto-file-update-btn">File update</button>
+              <button class="crypto-manual-update-btn">Manual update</button>
+            </div>
+            <div class="stocks-update-container">
+              <select class="available-stocks-updates"></select>
+              <button class="stocks-manual-update-btn">File update</button>
+              <button class="stocks-file-update-btn">Manual update</button>
+            </div>
+          </div>
         </div>
         <div class="task-bar"></div>
-        <!-- Only for testing -->
-         <div class="test-container">
-          <button class="logout-btn">Logout</button>
-          <button class="update-btn">Update</button>
-          <button class="confirm-btn">Confirm</button>
-          <button class="cancel-btn">Cancel</button>
-          <button class="files-list-btn">Files list</button>
-           <div class="crypto-container">
-            <input class="currency-type" type="text" placeholder="Currency">
-            <input class="start-result" type="number" placeholder="Start index">
-            <input class="results-per-page" type="number" placeholder="Results per page">
-            <button class="search-crypto">Search</button>
-           </div>
-         </div>
-         <!-- Only for testing -->
       </div>
     </main>
   </body>

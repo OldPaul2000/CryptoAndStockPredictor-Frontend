@@ -63,6 +63,12 @@ class WindowMovingHandler {
       document.removeEventListener("mousemove", this.#moveHandler);
     });
   };
+
+  clearData() {
+    this.#initialWindowX = null;
+    this.#initialWindowY = null;
+    this.#currentWindow = null;
+  }
 }
 
 export const windowMovingHandler = new WindowMovingHandler();

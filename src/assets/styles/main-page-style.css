@@ -40,9 +40,128 @@ main {
   width: 28rem;
   position: relative;
   display: grid;
+  align-content: start;
   grid-template-columns: repeat(2, 1fr);
   transition: transform 0.7s;
   z-index: 20;
+}
+
+.profile-username-container {
+  background-color: transparent;
+  border-bottom: #d3d6dc solid 0.1rem;
+  width: 100%;
+  height: 3.6rem;
+  grid-column: 1/-1;
+  border-radius: 0 0.8rem 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.6rem;
+}
+
+.profile-username-p {
+  color: #d3d6dc;
+  font-size: 2.4rem;
+  font-family: Roboto;
+}
+
+.logout-btn {
+  background-color: transparent;
+  height: 2.4rem;
+  width: 2.4rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  align-content: center;
+  padding-bottom: 0.2rem;
+  transition: box-shadow 0.3s;
+}
+
+.logout-btn:hover {
+  box-shadow: 0 0 15 3 rgba(222, 222, 222, 0.3);
+}
+
+.logout-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.charts-generator-container,
+.data-update-container {
+  background-color: transparent;
+  border-bottom: #d3d6dc solid 0.1rem;
+  width: 100%;
+  height: 24rem;
+  display: grid;
+  grid-column: 1/ -1;
+  padding: 1rem;
+}
+
+.charts-generator-container {
+  grid-template-rows: 1fr 1fr;
+}
+
+.data-update-container {
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1.4rem;
+}
+
+.currencies-options-container,
+.gen-chart-btns-container {
+  justify-content: center;
+  display: flex;
+}
+
+.currencies-options-container {
+  column-gap: 1.2rem;
+}
+
+.gen-chart-btns-container {
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  row-gap: 1.6rem;
+}
+
+.crypto-charts select,
+.stocks-charts select,
+.crypto-update-container select,
+.stocks-update-container select {
+  background-color: black;
+  color: #d3d6dc;
+  height: 2.4rem;
+  border-radius: 0.2rem;
+}
+
+.gen-crypto-chart-btn,
+.gen-stocks-chart-btn,
+.crypto-file-update-btn,
+.crypto-manual-update-btn,
+.stocks-file-update-btn,
+.stocks-manual-update-btn {
+  background-color: #393939;
+  color: #d3d6dc;
+  width: 14rem;
+  height: 2.4rem;
+  border: none;
+  border-radius: 0.4rem;
+  grid-column: 1 /-1;
+  justify-self: center;
+}
+
+.crypto-update-container,
+.stocks-update-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  align-items: center;
+}
+
+.crypto-update-container button,
+.stocks-update-container button,
+.crypto-update-container select,
+.stocks-update-container select {
+  width: 11rem;
 }
 
 .hide-panel-btn {
@@ -100,33 +219,3 @@ main {
 .window-bar-icon:hover {
   box-shadow: 0 0 7 1.4 rgba(200, 200, 200, 0.4);
 }
-
-/*===================== For testing =====================*/
-
-.logout-btn,
-.update-btn,
-.confirm-btn,
-.cancel-btn,
-.files-list-btn {
-  width: 8rem;
-  height: 3rem;
-  font-size: 1.6rem;
-}
-.crypto-container {
-  background-color: bisque;
-  width: 30rem;
-  height: 15rem;
-  padding-left: 0.4rem;
-  display: block;
-}
-
-.currency-type,
-.start-result,
-.results-per-page,
-.search-crypto {
-  width: 15rem;
-  height: 3rem;
-  font-size: 1.6rem;
-  display: block;
-}
-/*===================== For testing =====================*/

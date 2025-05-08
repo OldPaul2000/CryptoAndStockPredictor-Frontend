@@ -3,6 +3,20 @@ import { query } from "../helper/Query";
 class MainPageView {
   #main = query("main");
   #windows = [];
+  #windowTitles = new Map();
+
+  addWindowTitle(windowTitle) {
+    let windowTitleIndex = 1;
+    if (this.#windowTitles.has(windowTitle)) {
+      windowTitleIndex = this.#windowTitles.get(windowTitle);
+      windowTitleIndex++;
+    }
+    this.#windowTitles.set(windowTitle, windowTitleIndex);
+    if (windowTitleIndex === 1) {
+      return windowTitle;
+    }
+    return `${windowTitle} ${windowTitleIndex}`;
+  }
 
   getWindowByIndex(index) {
     return this.#windows[index];
@@ -61,6 +75,15 @@ class MainPageView {
 
   getMainPage() {
     return this.#main;
+  }
+
+  clearData() {
+    const mainPage = query(".main-page");
+    this.#windows.forEach((window) => {
+      mainPage.removeChild(window.getWindowElement());
+    });
+    this.#windows = [];
+    this.#windowTitles = new Map();
   }
 }
 

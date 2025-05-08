@@ -1,17 +1,10 @@
 import { getCsrf } from "../../cache/CsrfCache";
 import { myHeaders } from "../../cache/MyHeaders";
 import { API_ADDRESS, API_PORT } from "../../constants/ApiAddress";
-
-const AVAILABLE_CURRENCIES = [
-  "bitcoin",
-  "cardano",
-  "ethereum",
-  "litecoin",
-  "ripple",
-];
+import { AVAILABLE_CRYPTO } from "../../constants/AvailableCurrencies";
 
 export const getCurrency = async function (currency, start, resultsPerPage) {
-  if (AVAILABLE_CURRENCIES.includes(currency)) {
+  if (AVAILABLE_CRYPTO.has(currency)) {
     try {
       const resp = await fetch(
         `http://${API_ADDRESS}:${API_PORT}/api/v1/cryptos/${currency}?start=${start}&resultsPerPage=${resultsPerPage}`,
@@ -33,7 +26,7 @@ export const getCurrency = async function (currency, start, resultsPerPage) {
 };
 
 export const addCurrency = async function (currency, record) {
-  if (AVAILABLE_CURRENCIES.includes(currency)) {
+  if (AVAILABLE_CRYPTO.has(currency)) {
     await getCsrf();
     try {
       const resp = await fetch(
@@ -57,7 +50,7 @@ export const addCurrency = async function (currency, record) {
 };
 
 export const updateCurrency = async function (currency, id, record) {
-  if (AVAILABLE_CURRENCIES.includes(currency)) {
+  if (AVAILABLE_CRYPTO.has(currency)) {
     await getCsrf();
     try {
       const resp = await fetch(
@@ -81,7 +74,7 @@ export const updateCurrency = async function (currency, id, record) {
 };
 
 export const deleteCurrency = async function (currency, id) {
-  if (AVAILABLE_CURRENCIES.includes(currency)) {
+  if (AVAILABLE_CRYPTO.has(currency)) {
     await getCsrf();
     try {
       const resp = await fetch(

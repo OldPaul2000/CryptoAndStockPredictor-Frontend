@@ -114,6 +114,13 @@ class WindowResizeHandler {
       document.removeEventListener("mousemove", this.#resizeHandler);
     });
   };
+
+  clearData() {
+    this.#initialWindowY = null;
+    this.#initialWindowWidth = null;
+    this.#currentWindow = null;
+    this.#initialWindowX = null;
+  }
 }
 
 export const windowResizeHandler = new WindowResizeHandler();

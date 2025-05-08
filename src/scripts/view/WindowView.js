@@ -20,6 +20,7 @@ export class WindowView {
   #icon;
   #taskBarIcon;
   #RESIZE_CURSOR_DISPLAY_RANGE_FACTOR = 10;
+  #dimensions;
 
   #lastLeft;
   #lastTop;
@@ -27,10 +28,11 @@ export class WindowView {
   #lastHeight;
   #minimized = false;
 
-  constructor(windowTitle, content, icon) {
+  constructor(windowTitle, content, icon, dimensions) {
     this.#windowTitle = windowTitle;
     this.#content = content;
     this.#icon = icon;
+    this.#dimensions = dimensions;
   }
 
   #getWindowHTML() {
@@ -40,7 +42,7 @@ export class WindowView {
         <p class=\"window-title\" >${this.#windowTitle}</p>
         <div class=\"window-btns-container\">
           <button class=\"minimize-btn\">
-            <img class=\"minimize-icon\" src=${this.#MINIMIZE_ICON}>
+             <img class=\"minimize-icon\" src=${this.#MINIMIZE_ICON}>
           </button>
           <button class=\"maximize-btn\">
             <img class=\"maximize-icon\" src=${this.#MAXIMIZE_ICON}>
@@ -261,12 +263,10 @@ export class WindowView {
     this.#minimizeBtn = query(".minimize-btn");
     this.#maximizeBtn = query(".maximize-btn");
     this.#closeBtn = query(".close-btn");
-    const initialWidth = 500;
-    const initialHeight = 280;
-    this.#window.style.width = `${initialWidth}px`;
-    this.#window.style.height = `${initialHeight}px`;
-    this.setLastWidth(initialWidth);
-    this.setLastHeight(initialHeight);
+    this.#window.style.width = `${this.#dimensions.width}px`;
+    this.#window.style.height = `${this.#dimensions.height}px`;
+    this.setLastWidth(this.#dimensions.width);
+    this.setLastHeight(this.#dimensions.height);
     this.#window.dataset.resize = false;
     this.#window.dataset.name = this.#windowTitle.replace(/\s+/g, "-");
     this.#setInitialPosition(this.#window);

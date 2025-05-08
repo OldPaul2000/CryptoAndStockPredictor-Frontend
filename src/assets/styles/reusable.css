@@ -27,6 +27,17 @@
   transform: rotate(180deg);
 }
 
+/* Disabled available updates lists */
+.dis-list {
+  color: #7f8084;
+}
+
+/* Disabled update btn style*/
+.dis-btn {
+  color: #7f8084;
+  background-color: #222222;
+}
+
 /*===== Tools panel =====*/
 /*-------------------------------------------------------------------------------*/
 /*===== TaskBar =====*/
