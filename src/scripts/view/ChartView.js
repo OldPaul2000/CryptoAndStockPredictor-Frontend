@@ -105,11 +105,13 @@ export class ChartView {
   }
 
   addPredictedDataChartBar(predictedObject) {
+    predictedObject.close = predictedObject.close.toFixed(2);
     const bar = document.createElement("div");
     bar.classList.add("chart-bar");
     this.#graph.insertAdjacentElement("beforeend", bar);
     this.#chartBars.push(bar);
     this.#setBarColors(predictedObject, bar);
+    this.#currencyObjects.push(predictedObject);
 
     this.#graph.scrollLeft = this.#chartBars.length * this.#SCROLL_FACTOR;
     this.#currentXScroll = this.#graph.scrollLeft;
