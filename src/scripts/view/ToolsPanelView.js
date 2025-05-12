@@ -8,6 +8,7 @@ import { mainPageView } from "./MainPageView";
 import { taskBarView } from "./TaskBarView";
 import * as CryptoModel from "../model/crypto/CryptoModel";
 import * as StocksModel from "../model/stocks/StocksModel";
+import { runStockCryptoPrediction } from "../helper/MathematicalPredictor";
 
 class ToolsPanelView {
   #CHART_ICON = new URL("../../assets/icons/line-chart.png", import.meta.url);
@@ -20,6 +21,8 @@ class ToolsPanelView {
 
   #stocksCharts = query(".stocks-charts").querySelector("select");
   #cryptoCharts = query(".crypto-charts").querySelector("select");
+  //Represent the last records from the API from which chart bars will be created
+  #lastNCurrencyRecords = query(".last-n-currency-records");
   #cryptoChartGenerationBtn = query(".gen-crypto-chart-btn");
   #stocksChartGenerationBtn = query(".gen-stocks-chart-btn");
 
@@ -100,12 +103,12 @@ class ToolsPanelView {
 
   #generateChart(windowTitle, currency, currencyType) {
     if (currencyType === this.#CRYPTO_CURRENCY) {
-      CryptoModel.getCurrency(currency, 1300, 2000).then((res) => {
-        this.#chartGenerator(res, windowTitle);
+      CryptoModel.getCurrency(currency, 0, 5000).then((res) => {
+        this.#chartGenerator(res, windowTitle, currencyType);
       });
     } else if (currencyType === this.#STOCK_CURRENCY) {
-      StocksModel.getCurrency(currency, 1300, 2000).then((res) => {
-        this.#chartGenerator(res, windowTitle);
+      StocksModel.getCurrency(currency, 0, 5000).then((res) => {
+        this.#chartGenerator(res, windowTitle, currencyType);
       });
     }
   }
@@ -123,14 +126,27 @@ class ToolsPanelView {
     const taskBarIcon = taskBarView.addIcon(title, this.#CHART_ICON);
     window.setTaskbarIcon(taskBarIcon);
     chart.initializeChart();
-    let index = 0;
+    chart.setPredictBtnListener(() => {
+      const predictedData = runStockCryptoPrediction(chart.getTrainingData());
+      predictedData.forEach((el) => {
+        chart.addPredictedDataChartBar({ close: el });
+      });
+    });
+
+    let recordIndex = 0;
+    let barIndex = 0;
+    const apiResultsLength = apiResults.length;
     apiResults.forEach((el) => {
-      if (index === apiResults.length - 1) {
-        chart.addChartBar(el, index, true);
-      } else {
-        chart.addChartBar(el, index, false);
+      chart.addTrainingData(el);
+      if (recordIndex >= apiResultsLength - this.#lastNCurrencyRecords.value) {
+        if (recordIndex === apiResultsLength - 1) {
+          chart.addChartBar(el, barIndex, true);
+        } else {
+          chart.addChartBar(el, barIndex, false);
+        }
+        barIndex++;
       }
-      index++;
+      recordIndex++;
     });
   }
 

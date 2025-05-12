@@ -106,7 +106,23 @@ main {
   column-gap: 1.4rem;
 }
 
-.currencies-options-container,
+.currencies-options-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.crypto-charts,
+.stocks-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.stocks-charts {
+  grid-column: 2/-1;
+}
+
 .gen-chart-btns-container {
   justify-content: center;
   display: flex;
@@ -116,11 +132,60 @@ main {
   column-gap: 1.2rem;
 }
 
-.gen-chart-btns-container {
-  flex-direction: column;
+.bars-number-generator-container {
+  display: flex;
   align-items: center;
-  justify-content: start;
-  row-gap: 1.6rem;
+  justify-content: center;
+  gap: 0.8rem;
+  grid-column: 1 /-1;
+}
+
+.bars-number-generator-container ::-webkit-inner-spin-button {
+  display: none;
+}
+
+.bars-number-generator-container p {
+  color: #d3d6dc;
+  font-family: Roboto;
+  font-size: 1.4rem;
+}
+
+.last-n-currency-records {
+  background-color: #393939;
+  color: #d3d6dc;
+  height: 2.4rem;
+  border: none;
+  border-radius: 0.4rem;
+  padding-left: 0.4rem;
+}
+
+.last-n-currency-records:focus {
+  outline: #d3d6dc solid 0.1rem;
+}
+
+.crypto-charts select,
+.crypto-charts input,
+.crypto-charts button,
+.stocks-charts select,
+.stocks-charts input,
+.stocks-charts button {
+  width: 11.6rem;
+}
+
+.crypto-charts .gen-crypto-chart-btn,
+.stocks-charts .gen-stocks-chart-btn {
+  height: 3.4rem;
+}
+
+.crypto-charts input,
+.stocks-charts input {
+  padding-left: 0.4rem;
+  outline: none;
+}
+
+.crypto-charts input:focus,
+.stocks-charts input:focus {
+  outline: #d3d6dc solid 0.1rem;
 }
 
 .crypto-charts select,

@@ -1,6 +1,5 @@
 - 1.a: Fix window resize logic after complete chart development
 
-- 3.a: Implement addChartBar functionality:
-      * Improve timestamp elements distribution
+- 2.a: Improve timestamp elements distribution
       
 - 3.b(optional): make bars resizable by mouse wheel

@@ -8,6 +8,8 @@ export class ChartView {
   #xScaleLine;
   #yScaleLine;
   #timestamp;
+  #predictContainer;
+  #predictBtn;
   #priceScaleContent;
   #priceScaleEl1;
   #priceScaleEl2;
@@ -32,6 +34,7 @@ export class ChartView {
 
   #chartBars = [];
   #timestampElements = [];
+  #trainingData = [];
   #currencyObjects = [];
 
   #SCROLL_FACTOR = 14;
@@ -47,6 +50,14 @@ export class ChartView {
 
   constructor(chartName) {
     this.#chartName = chartName;
+  }
+
+  addTrainingData(currencyObject) {
+    this.#trainingData.push(currencyObject);
+  }
+
+  getTrainingData() {
+    return this.#trainingData;
   }
 
   getChartHTML() {
@@ -81,6 +92,9 @@ export class ChartView {
           </div>
         </div>
       </div>
+      <div class=\"predict-container\">
+          <button class=\"predict-btn\">Predict</button>
+      </div>
     </div>`;
 
     return structure;
@@ -90,7 +104,25 @@ export class ChartView {
     return this.#chart;
   }
 
+  addPredictedDataChartBar(predictedObject) {
+    const bar = document.createElement("div");
+    bar.classList.add("chart-bar");
+    this.#graph.insertAdjacentElement("beforeend", bar);
+    this.#chartBars.push(bar);
+    this.#setBarColors(predictedObject, bar);
+
+    this.#graph.scrollLeft = this.#chartBars.length * this.#SCROLL_FACTOR;
+    this.#currentXScroll = this.#graph.scrollLeft;
+    this.#currentScrollBarIndex = Math.ceil(
+      this.#currentXScroll / this.#SCROLL_FACTOR
+    );
+    this.#lastVisibleBarIndex = this.#chartBars.length - 1;
+    this.#calculateBarHeightRatio();
+    this.#calculateBarHeight(predictedObject.close, bar);
+  }
+
   addChartBar(currencyObject, index, isLastElement) {
+    // this.#currencyObjects.push(currencyObject);
     const bar = document.createElement("div");
     bar.classList.add("chart-bar");
     this.#graph.insertAdjacentElement("beforeend", bar);
@@ -120,8 +152,6 @@ export class ChartView {
   #timestampElementLeftMargin;
   #barsNumberUntilNextTimestamp = 0;
   #addTimestamp(date, currencyObjectIndex, isLastElement) {
-    // console.log(date, isLastElement);
-    // console.log(this.#chartBars[this.#chartBars.length - 1].style.left);
     const year = date.slice(0, 4);
     const month = date.slice(5, 7);
     let element;
@@ -170,7 +200,6 @@ export class ChartView {
         this.#lastTimestampWasMonth = true;
         this.#barsNumberUntilNextTimestamp = 0;
       }
-      // It doesn't add last element
     }
     this.#lastYear = Number.parseInt(date.slice(0, 4));
     this.#lastMonth = Number.parseInt(date.slice(5, 7));
@@ -372,6 +401,12 @@ export class ChartView {
     });
   }
 
+  setPredictBtnListener(listener) {
+    this.#predictBtn.addEventListener("click", (e) => {
+      listener();
+    });
+  }
+
   #setPriceCursorText(y) {
     const priceScaleCursorHeight = Number.parseInt(
       getComputedStyle(this.#priceScaleCursor).height
@@ -465,6 +500,8 @@ export class ChartView {
     this.#xScaleLine = this.#graph.querySelector(".x-scale-line");
     this.#yScaleLine = this.#graph.querySelector(".y-scale-line");
     this.#timestamp = mainContent.querySelector(".timestamp");
+    this.#predictContainer = this.#chart.querySelector(".predict-container");
+    this.#predictBtn = this.#chart.querySelector(".predict-btn");
     this.#priceScaleContent = this.#chart.querySelector(".scale-content");
     this.#currencyDate = this.#mainData.querySelector(".date");
     this.#close = this.#mainData.querySelector(".close-last");

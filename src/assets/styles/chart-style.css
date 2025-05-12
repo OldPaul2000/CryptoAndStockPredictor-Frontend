@@ -88,6 +88,25 @@
   border-radius: 0 0.4rem 0.4rem 0;
 }
 
+.predict-container {
+  background-color: #303134;
+  grid-column: 2/-1;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -2.6rem;
+  border-left: #aaaaaa solid 0.1rem;
+}
+.predict-btn {
+  background-color: #191a1d;
+  color: #d3d6dc;
+  width: 6rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  border: none;
+}
+
 .price-scale-cursor {
   background-color: #5c5c5c66;
   position: absolute;
